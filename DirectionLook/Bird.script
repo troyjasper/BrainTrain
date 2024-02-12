@@ -1,0 +1,18 @@
+go.property("direction", 0)
+
+
+function init(self)
+	-- Get the URL of the sprite component
+	local sprite_url = msg.url("#sprite")
+	
+	-- Set the sprite based on the direction
+	if self.direction == 0 then
+		sprite.play_flipbook(sprite_url, "up")
+	elseif self.direction == 1 then
+		sprite.play_flipbook(sprite_url, "down")
+	elseif self.direction == 2 then
+		sprite.play_flipbook(sprite_url, "left")
+	elseif self.direction == 3 then
+		sprite.play_flipbook(sprite_url, "right")
+	end
+end
