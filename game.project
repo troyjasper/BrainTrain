@@ -1,5 +1,5 @@
 [bootstrap]
-main_collection = /DirectionLook/DirectionLook.collectionc
+main_collection = /DirectionLook2/DirectionLook2.collectionc
 
 [script]
 shared_state = 1

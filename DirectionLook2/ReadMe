@@ -1,0 +1,7 @@
+DirectionLook v1 used a collectionfactory to spawn objects and try and read information from those objects
+it would've been easier to use Defold's messaging system I think
+
+DirectionLook v2 will move one object, no spawning
+
+Bird object
+var direction

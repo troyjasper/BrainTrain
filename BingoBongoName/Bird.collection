@@ -1,10 +1,10 @@
-name: "DirectionLook"
+name: "Bird"
 scale_along_z: 0
 embedded_instances {
-  id: "spawner"
+  id: "bird"
   data: "components {\n"
-  "  id: \"spawner\"\n"
-  "  component: \"/DirectionLook/spawner.script\"\n"
+  "  id: \"Bird\"\n"
+  "  component: \"/BingoBongoName/Bird.script\"\n"
   "  position {\n"
   "    x: 0.0\n"
   "    y: 0.0\n"
@@ -20,11 +20,15 @@ embedded_instances {
   "  }\n"
   "}\n"
   "embedded_components {\n"
-  "  id: \"burbmaker\"\n"
-  "  type: \"collectionfactory\"\n"
-  "  data: \"prototype: \\\"/DirectionLook/Bird.collection\\\"\\n"
-  "load_dynamically: false\\n"
-  "dynamic_prototype: false\\n"
+  "  id: \"sprite\"\n"
+  "  type: \"sprite\"\n"
+  "  data: \"default_animation: \\\"up\\\"\\n"
+  "material: \\\"/builtins/materials/sprite.material\\\"\\n"
+  "blend_mode: BLEND_MODE_ALPHA\\n"
+  "textures {\\n"
+  "  sampler: \\\"texture_sampler\\\"\\n"
+  "  texture: \\\"/Assets/bird.tilesource\\\"\\n"
+  "}\\n"
   "\"\n"
   "  position {\n"
   "    x: 0.0\n"
@@ -40,8 +44,8 @@ embedded_instances {
   "}\n"
   ""
   position {
-    x: 3.0
-    y: 4.0
+    x: 0.0
+    y: 0.0
     z: 0.0
   }
   rotation {
