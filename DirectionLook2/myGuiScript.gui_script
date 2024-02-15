@@ -1,0 +1,79 @@
+
+local upButton = nil
+local downButton = nil
+local leftButton = nil
+local rightButton = nil
+local upText = nil
+local downText = nil
+local leftText = nil
+local rightText = nil
+
+function init(self)
+	msg.post(".", "acquire_input_focus") -- <1>
+	upButton = gui.get_node("upButton") -- <3>
+	downButton = gui.get_node("downButton") -- <3>
+	leftButton = gui.get_node("leftButton") -- <3>
+	rightButton = gui.get_node("rightButton") -- <3>
+	upText = gui.get_node("upText") -- <4>
+	downText = gui.get_node("downText") -- <4>
+	leftText = gui.get_node("leftText") -- <4>
+	rightText = gui.get_node("rightText") -- <4>	
+end
+
+function on_input(self, action_id, action)
+	
+	-- if action_id == hash("touch") and action.pressed then -- <2>			
+	-- 	if gui.pick_node(upButton, action.x, action.y) then -- <5>
+	-- 	end
+	-- 	
+	-- 	if gui.pick_node(downButton, action.x, action.y) then -- <5>
+	-- 	end
+	-- 	
+	-- 	if gui.pick_node(leftButton, action.x, action.y) then -- <5>
+	-- 	end
+	-- 	
+	-- 	if gui.pick_node(rightButton, action.x, action.y) then -- <5>
+	-- 	end		
+	-- end	
+	
+	if action_id == hash("up") and action.pressed then
+		gui.set_color(upButton, vmath.vector3(1,0,0))
+		gui.set_color(upText, vmath.vector3(1,1,0))
+	elseif action_id == hash("up") and action.released then
+		gui.set_color(upButton, vmath.vector3(1,1,1))
+		gui.set_color(upText, vmath.vector3(0,0,0))
+	end
+
+	if action_id == hash("down") and action.pressed then
+		gui.set_color(downButton, vmath.vector3(1,0,0))
+		gui.set_color(downText, vmath.vector3(1,1,0))
+	elseif action_id == hash("down") and action.released then
+		gui.set_color(downButton, vmath.vector3(1,1,1))
+		gui.set_color(downText, vmath.vector3(0,0,0))
+	end
+
+	if action_id == hash("left") and action.pressed then
+		gui.set_color(leftButton, vmath.vector3(1,0,0))
+		gui.set_color(leftText, vmath.vector3(1,1,0))
+	elseif action_id == hash("left") and action.released then
+		gui.set_color(leftButton, vmath.vector3(1,1,1))
+		gui.set_color(leftText, vmath.vector3(0,0,0))
+	end
+
+	if action_id == hash("right") and action.pressed then
+		gui.set_color(rightButton, vmath.vector3(1,0,0))
+		gui.set_color(rightText, vmath.vector3(1,1,0))
+	elseif action_id == hash("right") and action.released then
+		gui.set_color(rightButton, vmath.vector3(1,1,1))
+		gui.set_color(rightText, vmath.vector3(0,0,0))
+	end
+	
+end
+
+function on_message(self, message_id, message, sender)
+	if message_id == hash("update_score") then
+		-- set the score counter to new score
+		local score_node = gui.get_node("Score")
+		gui.set_text(score_node, "SCORE: " .. message.score)
+	end
+end
