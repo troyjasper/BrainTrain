@@ -1,0 +1,11 @@
+A word will appear
+The word is of a colour
+The word is also coloured
+
+Lumosity:
+- Two colour words appear, each coloured randomly
+- Input TRUE if the meaning of the first word, matches the colour of the second word
+
+Other versions:
+- could work with just one word
+- could switch to asking for the colour or the meaning of the word
