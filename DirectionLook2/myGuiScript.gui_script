@@ -20,52 +20,104 @@ function init(self)
 	rightText = gui.get_node("rightText") -- <4>	
 end
 
+function press_up(self)
+	gui.set_color(upButton, vmath.vector3(1,0,0))
+	gui.set_color(upText, vmath.vector3(1,1,0))
+end
+
+function release_up(self)
+	gui.set_color(upButton, vmath.vector3(1,1,1))
+	gui.set_color(upText, vmath.vector3(0,0,0))
+end
+
+function press_down(self)
+	gui.set_color(downButton, vmath.vector3(1,0,0))
+	gui.set_color(downText, vmath.vector3(1,1,0))
+end
+
+function release_down(self)
+	gui.set_color(downButton, vmath.vector3(1,1,1))
+	gui.set_color(downText, vmath.vector3(0,0,0))
+end
+
+function press_left(self)
+	gui.set_color(leftButton, vmath.vector3(1,0,0))
+	gui.set_color(leftText, vmath.vector3(1,1,0))
+end
+
+function release_left(self)
+	gui.set_color(leftButton, vmath.vector3(1,1,1))
+	gui.set_color(leftText, vmath.vector3(0,0,0))
+end
+
+function press_right(self)
+	gui.set_color(rightButton, vmath.vector3(1,0,0))
+	gui.set_color(rightText, vmath.vector3(1,1,0))
+end
+
+function release_right(self)
+	gui.set_color(rightButton, vmath.vector3(1,1,1))
+	gui.set_color(rightText, vmath.vector3(0,0,0))
+end
+
 function on_input(self, action_id, action)
 	
-	-- if action_id == hash("touch") and action.pressed then -- <2>			
-	-- 	if gui.pick_node(upButton, action.x, action.y) then -- <5>
-	-- 	end
-	-- 	
-	-- 	if gui.pick_node(downButton, action.x, action.y) then -- <5>
-	-- 	end
-	-- 	
-	-- 	if gui.pick_node(leftButton, action.x, action.y) then -- <5>
-	-- 	end
-	-- 	
-	-- 	if gui.pick_node(rightButton, action.x, action.y) then -- <5>
-	-- 	end		
-	-- end	
+	if action_id == hash("touch") and action.pressed then -- <2>			
+		if gui.pick_node(upButton, action.x, action.y) then -- <5>
+			press_up(self)
+		end
+		
+		if gui.pick_node(downButton, action.x, action.y) then -- <5>
+			press_down(self)
+		end
+		
+		if gui.pick_node(leftButton, action.x, action.y) then -- <5>
+			press_left(self)
+		end
+		
+		if gui.pick_node(rightButton, action.x, action.y) then -- <5>
+			press_right(self)
+		end		
+	elseif action_id == hash("touch") and action.released then -- <2>			
+		if gui.pick_node(upButton, action.x, action.y) then -- <5>
+			release_up(self)
+		end
+
+		if gui.pick_node(downButton, action.x, action.y) then -- <5>
+			release_down(self)
+		end
+
+		if gui.pick_node(leftButton, action.x, action.y) then -- <5>
+			release_left(self)
+		end
+
+		if gui.pick_node(rightButton, action.x, action.y) then -- <5>
+			release_right(self)
+		end		
+	end	
 	
 	if action_id == hash("up") and action.pressed then
-		gui.set_color(upButton, vmath.vector3(1,0,0))
-		gui.set_color(upText, vmath.vector3(1,1,0))
+		press_up(self)
 	elseif action_id == hash("up") and action.released then
-		gui.set_color(upButton, vmath.vector3(1,1,1))
-		gui.set_color(upText, vmath.vector3(0,0,0))
+		release_up(self)
 	end
 
 	if action_id == hash("down") and action.pressed then
-		gui.set_color(downButton, vmath.vector3(1,0,0))
-		gui.set_color(downText, vmath.vector3(1,1,0))
+		press_down(self)
 	elseif action_id == hash("down") and action.released then
-		gui.set_color(downButton, vmath.vector3(1,1,1))
-		gui.set_color(downText, vmath.vector3(0,0,0))
+		release_down(self)
 	end
 
 	if action_id == hash("left") and action.pressed then
-		gui.set_color(leftButton, vmath.vector3(1,0,0))
-		gui.set_color(leftText, vmath.vector3(1,1,0))
+		press_left(self)
 	elseif action_id == hash("left") and action.released then
-		gui.set_color(leftButton, vmath.vector3(1,1,1))
-		gui.set_color(leftText, vmath.vector3(0,0,0))
+		release_left(self)
 	end
 
 	if action_id == hash("right") and action.pressed then
-		gui.set_color(rightButton, vmath.vector3(1,0,0))
-		gui.set_color(rightText, vmath.vector3(1,1,0))
+		press_right(self)
 	elseif action_id == hash("right") and action.released then
-		gui.set_color(rightButton, vmath.vector3(1,1,1))
-		gui.set_color(rightText, vmath.vector3(0,0,0))
+		release_right(self)
 	end
 	
 end

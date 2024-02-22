@@ -1,15 +1,49 @@
 Done:
 - display an arrow
 - get input
+- visually respond to input
+	- also works with mouse clicking
 - move the arrow on input
 - basic scoring system
+- other bird spawning and locations
+- flocking pattern switcher (just a script variable right now)
+	- square
+	- ring
+	- solo
+- distractions all point together, in a random direction
 
 Todo:
+- basically every phone functionality, particularly swipe and tap input
+- the spacing of the decoys is too far
+- in-game switches and toggles for most game changing variables (flock shape)
+- have the decoys be a different colour than the main bird
 - the arrow can move onto the input buttons, prevent this
+- for a difficulty meter, add various options that will increase or decrease a numeric value
+	- e.g., all distractions point the same way is making it easier, always pointing a different way is a bit harder, and sometimes pointing the same way makes it much harder
+	- having the shape change each reappearance is harder
 - add distractions
-	- other birds, which as a group point together, but different from the correct bird
+	- add different flocking patterns
+		- V (5)
+		- small "V" (3)
+		- cross of four
+		- "flock" cross of thirteen (9 square with four more cardinal directions)
+		- short line (3)
+		- long line (5)
 - art and design
 	-currently using a Kenny arrow asset to represent the "birds"
+	-backgrounds, currently floating in a black void
+- animation
+	- how should things appear and disappear? snapping into existence isn't great
+- particles?
+	- feathers for birds
+	- sparkles for arrows?
+- sound
+	- correct
+	- incorrect
+	- music
+	- ambience
+- pause menu
+- clock
 
 
 This game is the same concept as 

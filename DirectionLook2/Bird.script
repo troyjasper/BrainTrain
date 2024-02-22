@@ -4,27 +4,74 @@ local DIR = {
 	LEFT = 3, 
 	RIGHT = 4
 }
+
+local SHAPE = {
+	SOLO = 1,
+	CROSS = 2,
+	RING = 3,
+	SQUARE = 4,
+	FLOCK = 5
+}
 local orientation = 1;
 local width, height = window.get_size()
 local sprite_url = nil
 local bird_size = nil
 local myScore = 0
+local decoyBirds = {}
+local decoyBirdsPositions = {}
 
 function init(self)
-	-- Add initialization code here
-	-- Learn more: https://defold.com/manuals/script/
-	-- Remove this function if not needed
 	msg.post(".", "acquire_input_focus")
+	self.currentShape = SHAPE.RING
 	sprite_url = msg.url("#sprite")
 	bird_size = go.get("#sprite", "size")
-	replace(self)
-	
+	replace(self)	
+end
+
+function get_new_location(self)
+	local newx = math.random( bird_size.x , (width - bird_size.x) )
+	local newy = math.random( bird_size.y , (height - bird_size.y) )
+	return vmath.vector3(newx, newy, 0)
 end
 
 function set_location(self)
-	local newx = math.random( bird_size.x , (width - bird_size.x) )
-	local newy = math.random( bird_size.y , (height - bird_size.y) )
-	go.set_position( vmath.vector3(newx, newy, 0) )
+	newLocation = get_new_location(self)
+	go.set_position( newLocation )
+end
+
+function set_decoy_locations(self)
+	local pos = go.get_position()
+	local x = pos.x
+	local y = pos.y
+	local buffer = bird_size.x * 0.22
+	local distance = bird_size.x - buffer
+	if self.currentShape == SHAPE.RING then
+		local diag_distance = distance / 1.41421
+		decoyBirdsPositions = {
+			north = vmath.vector3(x, y + distance, 0),
+			south = vmath.vector3(x, y - distance, 0),
+			east = vmath.vector3(x + distance, y, 0),
+			west = vmath.vector3(x - distance, y, 0),
+			northeast = vmath.vector3(x + diag_distance, y + diag_distance, 0),
+			northwest = vmath.vector3(x - diag_distance, y + diag_distance, 0),
+			southeast = vmath.vector3(x + diag_distance, y - diag_distance, 0),
+			southwest = vmath.vector3(x - diag_distance, y - diag_distance, 0)
+		}
+	elseif self.currentShape == SHAPE.SOLO then
+		decoyBirdsPositions = {}
+	elseif self.currentShape == SHAPE.SQUARE then
+		local diag_distance = distance
+		decoyBirdsPositions = {
+			north = vmath.vector3(x, y + distance, 0),
+			south = vmath.vector3(x, y - distance, 0),
+			east = vmath.vector3(x + distance, y, 0),
+			west = vmath.vector3(x - distance, y, 0),
+			northeast = vmath.vector3(x + diag_distance, y + diag_distance, 0),
+			northwest = vmath.vector3(x - diag_distance, y + diag_distance, 0),
+			southeast = vmath.vector3(x + diag_distance, y - diag_distance, 0),
+			southwest = vmath.vector3(x - diag_distance, y - diag_distance, 0)
+		}
+	end	
 end
 
 function set_orientation(self)
@@ -41,15 +88,40 @@ function set_orientation(self)
 	end
 end
 
-function replace(self)
-	set_location(self)
-	set_orientation(self)	
+function delete_decoys(self)
+	for i, gameObject in ipairs(decoyBirds) do
+		if go.exists(gameObject) then  -- Check if the game object exists
+			go.delete(gameObject)  -- Delete the game object
+			decoyBirds[i] = nil -- remove from table
+		end
+	end
 end
 
-function on_message(self, message_id, message, sender)
-	-- Add message-handling code here
-	-- Learn more: https://defold.com/manuals/message-passing/
-	-- Remove this function if not needed
+function replace(self)	
+	delete_decoys(self)
+	set_location(self)
+	set_orientation(self)	
+	set_decoy_locations(self)
+	spawn_decoys(self)
+end
+
+function spawn_decoys(self)
+	decoyOrientation = math.random(4)
+	for db, position in pairs(decoyBirdsPositions) do
+		local id = factory.create("#decoyFactory", position)
+
+		if decoyOrientation == 1 then
+			msg.post(id, "up")
+		elseif decoyOrientation == 2 then
+			msg.post(id, "down")
+		elseif decoyOrientation == 3 then
+			msg.post(id, "left")
+		elseif decoyOrientation == 4 then
+			msg.post(id, "right")
+		end
+		
+		table.insert(decoyBirds, id)
+	end
 end
 
 function score(self, input)
